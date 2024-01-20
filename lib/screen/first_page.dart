@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:state_manage/controller/state_cont.dart';
 import 'package:state_manage/screen/second_page.dart';
 import 'package:state_manage/widget/custom_text.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
 
-  final int count = 0;
-
   @override
   Widget build(BuildContext context) {
+    final c = Get.put(StateControllere());
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -19,18 +21,22 @@ class FirstPage extends StatelessWidget {
               fontSize: 50,
             ),
             const SizedBox(height: 20),
-            CustomText(text: "$count", fontSize: 30),
+            Obx(() => CustomText(text: "${c.count}", fontSize: 30)),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    c.increment();
+                  },
                   child: const Icon(Icons.add),
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    c.decrement();
+                  },
                   child: const Icon(Icons.remove),
                 ),
               ],
